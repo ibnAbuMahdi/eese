@@ -85,10 +85,10 @@ const STRONG_MODELS = [
   'gemini-2.0-flash'
 ];
 
+const DEFAULT_GEMINI_KEY = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GEMINI_API_KEY) || '';
+
 async function gemini(prompt) {
-  const apiKey = typeof window !== 'undefined'
-    ? (localStorage.getItem('GEMINI_API_KEY') || localStorage.getItem('GOOGLE_API_KEY') || (import.meta.env && import.meta.env.VITE_GEMINI_API_KEY))
-    : null;
+  const apiKey = (typeof window !== 'undefined' && (localStorage.getItem('GEMINI_API_KEY') || localStorage.getItem('GOOGLE_API_KEY') || (import.meta.env && import.meta.env.VITE_GEMINI_API_KEY))) || DEFAULT_GEMINI_KEY;
   if (!apiKey) return null;
 
   for (const model of STRONG_MODELS) {
@@ -188,7 +188,7 @@ function Tag({ text, color }) {
 }
 
 // ─── Main ───────────────────────────────────────────────────────────────────────
-export default function ProjecteDemo() {
+export default function EESE() {
   const [phase, setPhase]           = useState('hero');
   const [brief, setBrief]           = useState('');
   const [consequence, setConsequence] = useState('');
@@ -296,19 +296,25 @@ Write a 110-word consequence narrative in second person. Be specific — name nu
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           flexWrap: 'wrap', gap: 12,
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{
+              fontWeight: 900, fontSize: 16, color: T.amber, letterSpacing: '0.04em',
+              background: T.amberGlow, padding: '4px 10px', borderRadius: 6, border: `1px solid ${T.amber}44`,
+            }}>
+              EESE
+            </span>
             <span style={{
               width: 28, height: 28, borderRadius: '50%',
-              background: T.amberGlow, border: `1px solid ${T.amber}`,
+              background: T.surfaceAlt, border: `1px solid ${T.border}`,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 11, color: T.amber, fontWeight: 800, flexShrink: 0,
+              fontSize: 11, color: T.text, fontWeight: 800, flexShrink: 0,
             }}>
               RM
             </span>
             <div style={{ fontSize: 13, color: T.text, lineHeight: 1.4 }}>
               <span style={{ fontWeight: 700 }}>Ruhullahi Muhammad</span>
               <span style={{ color: T.muted, marginLeft: 8, fontSize: 12 }}>
-                PhD Student in Electronics, BUK · Creator of EESE
+                PhD Student in Electronics, BUK
               </span>
             </div>
           </div>
